@@ -11,6 +11,7 @@ export class AppComponent implements OnInit, OnDestroy {
   page = 1;
   pageSize = 10;
   collectionSize: number;
+  isLoading: boolean = false;
   allUsers: User[] = [];
   userInput!: string;
   userSubscription!: Subscription;
@@ -18,11 +19,13 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.userSubscription = this.adminService.usersChanged.subscribe(
       ({users, collectionSize}) => {
         console.log('Iam at event emitter: ', users);
         this.allUsers = users;
         this.collectionSize = collectionSize;
+        this.isLoading = false;
       }
     );
     this.allUsers = this.adminService.retrieveUsers();

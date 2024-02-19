@@ -8,12 +8,14 @@ import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootst
 
 import { AppComponent } from './app.component';
 import { UserItemCOmponent } from './user-item/user-item.component';
+import { LoaderComponent } from './loader/loader.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserItemCOmponent
+    UserItemCOmponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
