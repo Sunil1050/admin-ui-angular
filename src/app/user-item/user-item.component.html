@@ -1,0 +1,66 @@
+<table class="table">
+	<thead class="table-primary">
+	  <tr>
+		<th scope="col">
+		  <input type="checkbox" class="checkbox" [(ngModel)]="isAllChecked" (change)="allChecked()" />
+		</th>
+		<th scope="col">Name</th>
+		<th scope="col">Email</th>
+		<th scope="col">Role</th>
+		<th scope="col">Actions</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr *ngFor="let user of users" [ngClass]="user.isChecked ? 'table-success': 'table-default'">
+		<td scope="row">
+			<input type="checkbox" class="checkbox" [(ngModel)]="user.isChecked"
+			  (change)="onCheckUser($event, user.id)" />
+		  </td>
+		  <td>{{ user.name }}</td>
+		  <td>{{ user.email }}</td>
+		  <td>{{ user.role }}</td>
+		  <td>
+			<i class="bi bi-pencil-square" style="font-size: 20px; margin-right: 20px; cursor: pointer"
+			  (click)="open(content, user)"></i>
+	  
+			<!-- This will load when edit is clicked -->
+			<ng-template #content let-modal>
+			  <div class="modal-header">
+				<h4 class="modal-title" id="modal-basic-title">Edit User Details</h4>
+				<button type="button" class="btn-close" aria-label="Close"
+				  (click)="modal.dismiss('Cross click')"></button>
+			  </div>
+			  <form [formGroup]="editForm" (ngSubmit)="onSubmit(user.id)">
+				<div class="modal-body">
+				  <div class="mb-3">
+					<label for="name" class="form-label">Name</label>
+					<input type="text" class="form-control" id="name" aria-describedby="emailHelp"
+					  formControlName="name" />
+				  </div>
+				  <div class="mb-3">
+					<label for="exampleInputEmail1" class="form-label">Email address</label>
+					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+					  formControlName="email" />
+					<div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+					</div>
+				  </div>
+				  <div class="mb-3">
+					<label for="role" class="form-label">Role</label>
+					<input type="text" class="form-control" id="role" aria-describedby="emailHelp"
+					  formControlName="role" />
+				  </div>
+				</div>
+				<div class="modal-footer">
+				  <button type="submit" class="btn btn-outline-dark"
+					(click)="modal.close('Save click')">Save</button>
+				</div>
+			  </form>
+			</ng-template>
+			<!-- --------------------------------- -->
+	  
+			<i class="bi bi-trash3" style="font-size: 20px; cursor: pointer;" (click)="onDeleteUser(user.id)"></i>
+		  </td>	  </tr>
+	</tbody>
+  </table>
+	
+	
